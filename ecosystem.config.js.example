@@ -1,0 +1,22 @@
+module.exports = {
+  apps: [
+    {
+      name: 'joni',
+      script: './src/app.js',
+      instances: 'max',
+      env_development: {
+        NODE_ENV: 'development',
+        JWT_KEY: 'Test123',
+        MONGODB_URL: 'mongodb://127.0.0.1:27017/joni',
+        REDIS_URL: ''
+      },
+      env_production: {
+        NODE_ENV: 'production',
+        JWT_KEY: 'Test123',
+        MONGODB_URL: '',
+        REDIS_URL: ''
+
+      },
+    },
+  ],
+}

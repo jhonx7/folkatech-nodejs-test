@@ -1,0 +1,25 @@
+{
+  "name": "folkatech-nodejs-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "env-cmd -f ./.env nodemon ./src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.4",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "nodemon": "^3.1.4"
+  }
+}
