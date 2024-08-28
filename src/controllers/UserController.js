@@ -65,7 +65,9 @@ class UserController {
         totalPages: total === 0 ? 0 : Math.ceil(count / limit),
         currentPage: parseInt(page)
       }
-      await redisClient.setEx(cacheKey, 3600, JSON.stringify(data));
+      if (total != 0) {
+        await redisClient.setEx(cacheKey, 3600, JSON.stringify(data));
+      }
       res.status(200).json({
         message: 'Success Get User',
         data,
@@ -88,7 +90,7 @@ class UserController {
     if (unvalidated) {
       return res.status(422).send({ errors: unvalidated.details });
     }
-    
+
     const {
       userName,
       accountNumber,
@@ -147,11 +149,13 @@ class UserController {
   }
 
   async read(req, res) {
+    const cacheKey = req.originalUrl || req.url;
+
     const {
       id,
       accountNumber,
       identityNumber,
-    } = req.body;
+    } = req.query;
 
     let user = null;
     try {
@@ -174,6 +178,7 @@ class UserController {
           message: "User not found"
         })
       }
+      await redisClient.setEx(cacheKey, 3600, JSON.stringify(user));
       return res.status(200).json({
         message: 'Success Get User',
         data: user
