@@ -10,7 +10,7 @@ class AuthController {
       }, process.env.JWT_KEY);
 
       return res.status(200).json({
-        message: 'Success Get User',
+        message: 'Success Get Token',
         data: { token }
       })
     } catch (error) {

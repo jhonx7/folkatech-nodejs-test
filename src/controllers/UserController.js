@@ -98,6 +98,9 @@ class UserController {
       identityNumber,
     } = req.body;
 
+    const usernameUser = await User.findOne({
+      userName
+    });
     const emailUser = await User.findOne({
       emailAddress
     });
@@ -108,6 +111,11 @@ class UserController {
       identityNumber
     });
 
+    if (usernameUser) {
+      return res.status(422).json({
+        message: "Username is registered"
+      });
+    }
     if (emailUser) {
       return res.status(422).json({
         message: "Email is registered"
@@ -219,6 +227,21 @@ class UserController {
         })
       }
 
+      const usernameUser = await User.findOne({
+        $and: [{
+          userName
+        },
+        {
+          userName: {
+            $ne: user.userName
+          }
+        }]
+      });
+      if (usernameUser) {
+        return res.status(422).json({
+          message: "Username is registered"
+        });
+      }
       const emailUser = await User.findOne({
         $and: [{
           emailAddress
